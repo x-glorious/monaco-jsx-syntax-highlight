@@ -1,0 +1,32 @@
+{
+  "name": "monaco-jsx-syntax-highlight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clear": "rm -rf lib",
+    "compile": "npm run clear && rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ordinaryP/monaco-jsx-syntax-highlight.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ordinaryP/monaco-jsx-syntax-highlight/issues"
+  },
+  "homepage": "https://github.com/ordinaryP/monaco-jsx-syntax-highlight#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "minimist": "^1.2.6",
+    "prettier": "^2.6.2",
+    "rollup": "^2.72.1",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  }
+}

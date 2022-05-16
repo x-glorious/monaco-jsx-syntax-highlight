@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "rootDirs": ["./src"],
+    "baseUrl": ".",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "jsx": "react",
+    "lib": ["es5", "dom", "ScriptHost", "es2015"],
+    "allowJs": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "lib"]
+}
