@@ -10,7 +10,9 @@
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "./lib"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "lib"]

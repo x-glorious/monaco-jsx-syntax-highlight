@@ -1,19 +1,27 @@
 {
   "name": "monaco-jsx-syntax-highlight",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Highlight the jsx or tsx syntax for monaco editor",
+  "keywords": ["monaco","jsx","highlight","tsx","monaco-editor","syntax"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "rm -rf lib",
-    "compile": "npm run clear && rollup -c"
+    "precompile": "node ./scripts/mode.js --mode=build",
+    "compile": "npm run clear && rollup -c",
+    "postcompile": "node ./scripts/generate-worker-json.js"
   },
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/index.js",
+  "module": "./lib/index.module.js",
+  "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ordinaryP/monaco-jsx-syntax-highlight.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "ordinaryP",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ordinaryP/monaco-jsx-syntax-highlight/issues"
   },

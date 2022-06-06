@@ -13,6 +13,7 @@ export interface Classification {
 
 export interface Config {
   jsxTagCycle: number
+  enableConsole?: boolean
 }
 
 export interface Context {

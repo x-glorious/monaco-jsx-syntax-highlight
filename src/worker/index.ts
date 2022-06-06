@@ -82,8 +82,11 @@ const analysisTsx = (filePath: string, code: string, config?: Config) => {
     })
     return classifications
   } catch (e) {
-    console.error(e)
-    return undefined
+    // 根据配置打印错误
+    if(config && config.enableConsole){
+      console.error(e)
+    }
+    return []
   }
 }
 
@@ -95,6 +98,9 @@ self.addEventListener('message', (event) => {
 
     self.postMessage({ classifications: result, version, filePath })
   } catch (e) {
-    /* Ignore error */
+    // 根据配置打印错误
+    if(config && config.enableConsole){
+      console.error(e)
+    }
   }
 })
