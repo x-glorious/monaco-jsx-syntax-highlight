@@ -4,6 +4,9 @@ interface WorkerContentInJson {
   worker: string
 }
 
+/**
+ * 高亮
+ */
 export class MonacoJsxSyntaxHighlight {
   private worker: Worker
   private monaco: any
@@ -33,7 +36,11 @@ export class MonacoJsxSyntaxHighlight {
       blob = blob.getBlob()
     }
 
-    return new Worker(URL.createObjectURL(blob));
+    const worker =  new Worker(URL.createObjectURL(blob))
+    // free
+    URL.revokeObjectURL(blob)
+
+    return worker
   }
 
   private generateCallbackKey = (filePath: string, version: string) => `<${filePath}><${version}>`

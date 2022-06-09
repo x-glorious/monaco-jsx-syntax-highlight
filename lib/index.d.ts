@@ -1,6 +1,9 @@
 interface WorkerContentInJson {
     worker: string;
 }
+/**
+ * 高亮
+ */
 export declare class MonacoJsxSyntaxHighlight {
     private worker;
     private monaco;

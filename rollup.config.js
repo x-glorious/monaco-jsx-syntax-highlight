@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript2'
+import uglify from '@lopatnov/rollup-plugin-uglify'
 
 import pkg from './package.json'
 
@@ -21,7 +22,9 @@ export default [
         plugins: [
             typescript({
                 useTsconfigDeclarationDir: true
-            })
+            }),
+            // 混淆压缩worker
+            uglify()
         ]
     },
     {
