@@ -1,6 +1,6 @@
-import {Data} from "./types";
-import {calcPosition} from "./tool";
-import {JsxToken} from "./define";
+import { Data } from './types'
+import { calcPosition } from './tool'
+import { JsxToken } from './define'
 
 /**
  * 分析jsx attribute key
@@ -8,7 +8,7 @@ import {JsxToken} from "./define";
  */
 export const disposeJsxAttributeKey = (data: Data) => {
   const { node, lines, classifications } = data
-  const { positions } = calcPosition(node,lines)
+  const { positions } = calcPosition(node, lines)
   classifications.push({
     start: positions[0],
     end: positions[1],

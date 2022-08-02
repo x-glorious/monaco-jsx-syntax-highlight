@@ -1,13 +1,13 @@
-import {Typescript} from './typescript'
+import { Typescript } from './typescript'
 
-import {disposeJsxElementOrFragment} from './dispose-jsx-element-or-fragment'
-import {Classification, Config, Data} from "./types";
-import {disposeJsxAttributeKey} from "./dispose-jsx-attribute-key";
-import {disposeJsxExpression} from "./dispose-jsx-expression";
-import {disposeJsxText} from "./dispose-jsx-text";
+import { disposeJsxElementOrFragment } from './dispose-jsx-element-or-fragment'
+import { Classification, Config, Data } from './types'
+import { disposeJsxAttributeKey } from './dispose-jsx-attribute-key'
+import { disposeJsxExpression } from './dispose-jsx-expression'
+import { disposeJsxText } from './dispose-jsx-text'
 
 const disposeNode = (data: Data) => {
-  const {node, index} = data
+  const { node, index } = data
   // 寻找到 jsx element or fragment 节点
   if (
     [
@@ -19,26 +19,24 @@ const disposeNode = (data: Data) => {
     disposeJsxElementOrFragment(data)
   }
 
-  const token = Typescript.SyntaxKind[node.kind]
-
   // jsx attribute key
   if (
     node.parent &&
     node.parent.kind === Typescript.SyntaxKind.JsxAttribute &&
     node.kind === Typescript.SyntaxKind.Identifier &&
-    index === 0) {
+    index === 0
+  ) {
     disposeJsxAttributeKey(data)
   }
 
   // jsx expression
-  if(node.kind === Typescript.SyntaxKind.JsxExpression){
+  if (node.kind === Typescript.SyntaxKind.JsxExpression) {
     disposeJsxExpression(data)
   }
 
-  if(node.kind === Typescript.SyntaxKind.JsxText){
+  if (node.kind === Typescript.SyntaxKind.JsxText) {
     disposeJsxText(data)
   }
-
 }
 
 const walkAST = (data: Data) => {
@@ -55,7 +53,7 @@ const walkAST = (data: Data) => {
 }
 
 const withDefaultConfig = (config?: Config): Config => {
-  const {jsxTagCycle = 3} = (config || {} as Config)
+  const { jsxTagCycle = 3 } = config || ({} as Config)
   return {
     jsxTagCycle
   }
@@ -75,7 +73,7 @@ const analysisTsx = (filePath: string, code: string, config?: Config) => {
     walkAST({
       node: sourceFile,
       lines,
-      context: {jsxTagOrder: 1},
+      context: { jsxTagOrder: 1 },
       classifications,
       config: withDefaultConfig(config),
       index: 0
@@ -83,7 +81,7 @@ const analysisTsx = (filePath: string, code: string, config?: Config) => {
     return classifications
   } catch (e) {
     // 根据配置打印错误
-    if(config && config.enableConsole){
+    if (config && config.enableConsole) {
       console.error(e)
     }
     return []
@@ -99,7 +97,7 @@ self.addEventListener('message', (event) => {
     self.postMessage({ classifications: result, version, filePath })
   } catch (e) {
     // 根据配置打印错误
-    if(config && config.enableConsole){
+    if (config && config.enableConsole) {
       console.error(e)
     }
   }

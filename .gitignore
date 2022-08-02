@@ -222,3 +222,6 @@ tsconfig.json
 
 .idea
 
+# project
+lib
+

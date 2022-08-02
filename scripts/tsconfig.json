@@ -12,7 +12,8 @@
     "noImplicitThis": true,
     "esModuleInterop": true,
     "declaration": true,
-    "declarationDir": "./lib"
+    "declarationDir": "./lib",
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "lib"]

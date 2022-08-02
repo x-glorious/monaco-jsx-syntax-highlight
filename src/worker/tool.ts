@@ -1,4 +1,4 @@
-import {Typescript} from './typescript'
+import { Typescript } from './typescript'
 
 /**
  * 获取对应下标所处行列数据
@@ -14,7 +14,7 @@ export const getRowAndColumn = (index: number, lines: number[]) => {
     line += 1
   }
 
-  return {row: line + 1, column: index - offset}
+  return { row: line + 1, column: index - offset }
 }
 
 /**

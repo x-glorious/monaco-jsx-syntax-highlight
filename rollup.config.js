@@ -45,13 +45,13 @@ export default [
                 file: 'lib/index.min.js',
                 format: 'iife',
                 // sourcemap: !production,
-                name: 'monacoJsxSyntaxHighlight',
+                name: 'MonacoJsxSyntaxHighlight',
                 strict: false
             },
             {
                 file: 'lib/index.umd.js',
                 format: 'umd',
-                name: 'monacoJsxSyntaxHighlight',
+                name: 'MonacoJsxSyntaxHighlight',
                 strict: false
             }
         ],

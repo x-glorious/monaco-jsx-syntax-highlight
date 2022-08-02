@@ -1,6 +1,6 @@
-import {Data} from "./types";
-import {calcPosition} from "./tool";
-import {JsxToken} from "./define";
+import { Data } from './types'
+import { calcPosition } from './tool'
+import { JsxToken } from './define'
 
 export const disposeJsxExpression = (data: Data) => {
   const { node, lines, classifications } = data

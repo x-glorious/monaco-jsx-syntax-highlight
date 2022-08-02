@@ -1,3 +1,3 @@
-import * as Typescript from "typescript"
+import * as Typescript from 'typescript'
 
-export {Typescript}
+export { Typescript }

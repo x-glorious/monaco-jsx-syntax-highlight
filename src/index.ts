@@ -1,9 +1,16 @@
-import {Classification} from "./worker/types";
+import { Classification } from './worker/types'
 
 interface WorkerContentInJson {
   worker: string
 }
 
+export interface Config {
+  /**
+   * 自定义 typescript.min.js url
+   * - 只在worker来源为 json 模式下生效
+   */
+  customTypescriptUrl?: string
+}
 /**
  * 高亮
  */
@@ -11,55 +18,60 @@ export class MonacoJsxSyntaxHighlight {
   private worker: Worker
   private monaco: any
 
-  constructor(worker: string | Worker | WorkerContentInJson, monaco: any) {
+  constructor(worker: string | Worker | WorkerContentInJson, monaco: any, config?: Config) {
     this.monaco = monaco
     if (typeof worker === 'string') {
       this.worker = new Worker(worker)
-    } else if ((worker as WorkerContentInJson).worker && typeof (worker as WorkerContentInJson).worker === 'string') {
-      this.worker = this.createWorkerFromPureString((worker as WorkerContentInJson).worker)
+    } else if (
+      (worker as WorkerContentInJson).worker &&
+      typeof (worker as WorkerContentInJson).worker === 'string'
+    ) {
+      this.worker = this.createWorkerFromPureString((worker as WorkerContentInJson).worker, config)
     } else {
       this.worker = worker as Worker
     }
   }
 
-  private createWorkerFromPureString = (content: string) => {
+  private createWorkerFromPureString = (content: string, config?: Config) => {
     // URL.createObjectURL
     window.URL = window.URL || window.webkitURL
     let blob
+
+    // replace the custom url
+    content = content.replace(
+      '__TYPESCRIPT_CUSTOM_URL__',
+      config?.customTypescriptUrl ? `'${config?.customTypescriptUrl}'` : 'undefined'
+    )
+
     try {
-      blob = new Blob([content], {type: 'application/javascript'})
+      blob = new Blob([content], { type: 'application/javascript' })
     } catch (e) {
       // Backwards-compatibility
-      (window as any).BlobBuilder = (window as any).BlobBuilder || (window as any).WebKitBlobBuilder || (window as any).MozBlobBuilder
+      ;(window as any).BlobBuilder =
+        (window as any).BlobBuilder ||
+        (window as any).WebKitBlobBuilder ||
+        (window as any).MozBlobBuilder
       blob = new (window as any).BlobBuilder()
       blob.append(content)
       blob = blob.getBlob()
     }
 
-    const worker =  new Worker(URL.createObjectURL(blob))
+    const worker = new Worker(URL.createObjectURL(blob))
     // free
     URL.revokeObjectURL(blob)
 
     return worker
   }
 
-  private generateCallbackKey = (filePath: string, version: string) => `<${filePath}><${version}>`
-
-  public highlighterBuilder = (context: {
-    editor: any,
-    filePath?: string
-  }) => {
-    const {editor, filePath = editor.getModel().uri.toString()} = context
-    const decorationsRef = {current: []}
+  public highlighterBuilder = (context: { editor: any; filePath?: string }) => {
+    const { editor, filePath = editor.getModel().uri.toString() } = context
+    const decorationsRef = { current: [] }
 
     const disposeMessage = (event: MessageEvent) => {
-      const {classifications, version, filePath: disposeFilePath} = event.data
+      const { classifications, version, filePath: disposeFilePath } = event.data
       requestAnimationFrame(() => {
         // 确认为本文件，并且为最新版本
-        if (
-          disposeFilePath === filePath &&
-          version === editor.getModel().getVersionId()
-        ) {
+        if (disposeFilePath === filePath && version === editor.getModel().getVersionId()) {
           const preDecoration = decorationsRef.current
           decorationsRef.current = editor.deltaDecorations(
             preDecoration,
