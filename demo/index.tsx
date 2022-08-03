@@ -14,10 +14,7 @@ function App() {
       esModuleInterop: true
     })
 
-    const monacoJsxSyntaxHighlight = new MonacoJsxSyntaxHighlight(WorkerJson, monaco, {
-      // customTypescriptUrl:
-      //   'https://normal-mayfly.oss-cn-hangzhou.aliyuncs.com/external/cdn/typescript.4.6.4.min.js'
-    })
+    const monacoJsxSyntaxHighlight = new MonacoJsxSyntaxHighlight(WorkerJson, monaco)
 
     // editor is the result of monaco.editor.create
     const { highlighter, dispose } = monacoJsxSyntaxHighlight.highlighterBuilder({

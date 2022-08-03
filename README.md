@@ -3,11 +3,12 @@
 [![npm version](https://img.shields.io/npm/v/monaco-jsx-syntax-highlight.svg)](https://www.npmjs.com/package/monaco-jsx-highlighter)
 [![npm downloads](https://img.shields.io/npm/dm/monaco-jsx-syntax-highlight.svg)](https://www.npmjs.com/package/monaco-jsx-highlighter)
 
-Support monaco jsx syntax highlight
+Support monaco **jsx/tsx** syntax highlight
 
-Monaco just support the jsx syntax checker
+Monaco only support the jsx **syntax checker**
 
 ## Installing
+
 ```shell
 $ npm install monaco-jsx-syntax-highlight
 ```
@@ -18,6 +19,7 @@ The main part of this package is a worker for **analysing jsx syntax**
 So we have to way to init the **Controller class**
 
 ### Use blob create worker
+
 ```tsx
 import { MonacoJsxSyntaxHighlight } from 'monaco-jsx-syntax-highlight'
 import Worker from 'monaco-jsx-syntax-highlight/worker/index.json'
@@ -25,16 +27,28 @@ import Worker from 'monaco-jsx-syntax-highlight/worker/index.json'
 const controller = new MonacoJsxSyntaxHighlight(Worker, monaco)
 ```
 
+When using json file as Worker, we can **custom the typescript compile source file url**（for the purpose of **speeding up** load time）
+
+If do not set, the default source is https://cdnjs.cloudflare.com/ajax/libs/typescript/4.6.4/typescript.min.js
+
+```tsx
+const controller = new MonacoJsxSyntaxHighlight(Worker, monaco, {
+    customTypescriptUrl: 'https://xxx/typescript.min.js'
+})
+```
+
 ### Use js worker file
+
 If your browser do not support to use blob worker, you can download the [worker file](https://github.com/ordinaryP/monaco-jsx-syntax-highlight/blob/main/lib/worker/index.js) and save it
 
 ```tsx
 import { MonacoJsxSyntaxHighlight } from 'monaco-jsx-syntax-highlight'
-import Worker from 'monaco-jsx-syntax-highlight/worker/index.json'
 
 const controller = new MonacoJsxSyntaxHighlight('https://xxxx', monaco)
 ```
+
 ---
+
 ### Controller
 
 Remember, when this editor is disposed(`editor.dispose`), we should **invoke the `dispose`** function returned by the highlighterBuilder too
@@ -56,7 +70,7 @@ editor.onDidChangeModelContent(() => {
 })
 ```
 
-### Highlight
+### Highlight class
 
 Use css class to highlight the jsx syntax
 
@@ -65,7 +79,7 @@ Use css class to highlight the jsx syntax
 - `'jsx-expression-braces'`: the braces of attribute value
 - `'jsx-text'`: the text in jsx tag content
 - `'jsx-tag-name'`: the tag name of jsx tag
-
+- `'jsx-tag-order-xxx'`: the tag order class
 
 ## FAQ
 
@@ -73,7 +87,7 @@ Use css class to highlight the jsx syntax
 
 You can try below config code
 
-PS: the file name must end with `jsx` or `tsx`
+PS: the **file name must end with** `jsx` or `tsx`
 
 ```tsx
 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({

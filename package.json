@@ -15,7 +15,7 @@
     "clear": "rm -rf lib",
     "init": "node ./scripts/mode.js --mode=dev",
     "demo": "parcel demo/index.html",
-    "precompile": "node ./scripts/mode.js --mode=build",
+    "precompile": "npm run test && node ./scripts/mode.js --mode=build",
     "compile": "npm run clear && rollup -c",
     "postcompile": "node ./scripts/generate-worker-json.js && node ./scripts/mode.js --mode=dev"
   },
