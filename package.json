@@ -13,11 +13,16 @@
   "scripts": {
     "test": "jest",
     "clear": "rm -rf lib",
-    "init": "node ./scripts/mode.js --mode=dev",
+    "init": "npm run mode:dev && npm run generate-worker-json",
     "demo": "parcel demo/index.html",
-    "precompile": "npm run test && node ./scripts/mode.js --mode=build",
-    "compile": "npm run clear && rollup -c",
-    "postcompile": "node ./scripts/generate-worker-json.js && node ./scripts/mode.js --mode=dev"
+    "generate-worker-json": "node ./scripts/generate-worker-json.js",
+    "mode:build": "node ./scripts/mode.js --mode=build",
+    "mode:dev": "node ./scripts/mode.js --mode=dev",
+    "precompile": "npm run mode:dev && npm run test && npm run mode:build && npm run clear",
+    "compile:worker": "rollup --config rollup.config.worker.js && npm run generate-worker-json",
+    "compile:index": "rollup -c",
+    "compile": "npm run compile:worker && npm run compile:index",
+    "postcompile": "node ./scripts/mode.js --mode=dev"
   },
   "files": [
     "lib"
@@ -39,6 +44,7 @@
     "@lopatnov/rollup-plugin-uglify": "^2.1.2",
     "@monaco-editor/react": "^4.4.5",
     "@parcel/transformer-sass": "^2.6.2",
+    "@rollup/plugin-json": "^4.1.0",
     "@types/jest": "^28.1.6",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
@@ -51,6 +57,8 @@
     "parcel": "^2.6.2",
     "prettier": "^2.6.2",
     "process": "^0.11.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rollup": "^2.72.1",
     "rollup-plugin-typescript2": "^0.31.2",
     "rollup-pluginutils": "^2.8.2",

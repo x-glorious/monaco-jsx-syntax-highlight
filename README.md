@@ -7,8 +7,6 @@ Support monaco **jsx/tsx** syntax highlight
 
 Monaco only support the jsx **syntax checker**
 
-[Live demo](https://codesandbox.io/s/momaco-jsx-tsx-highlight-mp1sby)
-
 ## Installing
 
 ```shell

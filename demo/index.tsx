@@ -1,9 +1,8 @@
-import { MonacoJsxSyntaxHighlight } from '../lib'
+import { MonacoJsxSyntaxHighlight, getWorker } from '../lib'
 import Editor from '@monaco-editor/react'
 import * as React from 'react'
 import { useCallback } from 'react'
-import ReactDOM from 'react-dom'
-import WorkerJson from '../lib/worker/index.json'
+import * as ReactDOM from 'react-dom'
 import './index.scss'
 
 function App() {
@@ -14,7 +13,7 @@ function App() {
       esModuleInterop: true
     })
 
-    const monacoJsxSyntaxHighlight = new MonacoJsxSyntaxHighlight(WorkerJson, monaco)
+    const monacoJsxSyntaxHighlight = new MonacoJsxSyntaxHighlight(getWorker(), monaco)
 
     // editor is the result of monaco.editor.create
     const { highlighter, dispose } = monacoJsxSyntaxHighlight.highlighterBuilder({
