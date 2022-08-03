@@ -13,7 +13,7 @@ export const disposeJsxElementOrFragment = (data: Data) => {
   const { node, lines, classifications } = data
   const config = data.config
   const context = data.context
-  const orderToken = `jsx-tag-order-${context.jsxTagOrder}`
+  const orderToken = `${JsxToken.orderTokenPrefix}-${context.jsxTagOrder}`
   context.jsxTagOrder = context.jsxTagOrder + 1 > config.jsxTagCycle ? 1 : context.jsxTagOrder + 1
 
   // em <div />

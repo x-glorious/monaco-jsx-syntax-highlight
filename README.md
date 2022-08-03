@@ -1,5 +1,8 @@
 # monaco-jsx-syntax-highlight
 
+[![npm version](https://img.shields.io/npm/v/monaco-jsx-syntax-highlight.svg)](https://www.npmjs.com/package/monaco-jsx-highlighter)
+[![npm downloads](https://img.shields.io/npm/dm/monaco-jsx-syntax-highlight.svg)](https://www.npmjs.com/package/monaco-jsx-highlighter)
+
 Support monaco jsx syntax highlight
 
 Monaco just support the jsx syntax checker
