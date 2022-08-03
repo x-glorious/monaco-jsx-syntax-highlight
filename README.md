@@ -7,6 +7,8 @@ Support monaco **jsx/tsx** syntax highlight
 
 Monaco only support the jsx **syntax checker**
 
+[Live demo](https://codesandbox.io/s/momaco-jsx-tsx-highlight-mp1sby)
+
 ## Installing
 
 ```shell
@@ -21,25 +23,26 @@ So we have to way to init the **Controller class**
 ### Use blob create worker
 
 ```tsx
-import { MonacoJsxSyntaxHighlight } from 'monaco-jsx-syntax-highlight'
-import Worker from 'monaco-jsx-syntax-highlight/worker/index.json'
+import { MonacoJsxSyntaxHighlight, getWorker } from 'monaco-jsx-syntax-highlight'
 
-const controller = new MonacoJsxSyntaxHighlight(Worker, monaco)
+const controller = new MonacoJsxSyntaxHighlight(getWorker(), monaco)
 ```
 
-When using json file as Worker, we can **custom the typescript compile source file url**（for the purpose of **speeding up** load time）
+When using `getWorker` return value as Worker, we can **custom the typescript compile source file url**（for the purpose of **speeding up** load time）
 
 If do not set, the default source is https://cdnjs.cloudflare.com/ajax/libs/typescript/4.6.4/typescript.min.js
 
 ```tsx
-const controller = new MonacoJsxSyntaxHighlight(Worker, monaco, {
+const controller = new MonacoJsxSyntaxHighlight(getWorker(), monaco, {
     customTypescriptUrl: 'https://xxx/typescript.min.js'
 })
 ```
 
 ### Use js worker file
 
-If your browser do not support to use blob worker, you can download the [worker file](https://github.com/ordinaryP/monaco-jsx-syntax-highlight/blob/main/lib/worker/index.js) and save it
+If your browser do not support to use blob worker, you can download the [worker file](https://github.com/x-glorious/monaco-jsx-syntax-highlight/releases) and save it in your project
+
+- web worker has same-origin policy
 
 ```tsx
 import { MonacoJsxSyntaxHighlight } from 'monaco-jsx-syntax-highlight'
