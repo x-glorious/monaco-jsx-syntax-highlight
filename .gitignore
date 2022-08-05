@@ -224,4 +224,5 @@ tsconfig.json
 
 # project
 lib
+src/worker.json
 

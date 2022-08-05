@@ -1,6 +1,6 @@
 import { Classification } from './worker/types'
 
-interface WorkerContentInJson {
+export interface WorkerStringContainer {
   worker: string
 }
 
@@ -18,15 +18,18 @@ export class MonacoJsxSyntaxHighlight {
   private worker: Worker
   private monaco: any
 
-  constructor(worker: string | Worker | WorkerContentInJson, monaco: any, config?: Config) {
+  constructor(worker: string | Worker | WorkerStringContainer, monaco: any, config?: Config) {
     this.monaco = monaco
     if (typeof worker === 'string') {
       this.worker = new Worker(worker)
     } else if (
-      (worker as WorkerContentInJson).worker &&
-      typeof (worker as WorkerContentInJson).worker === 'string'
+      (worker as WorkerStringContainer).worker &&
+      typeof (worker as WorkerStringContainer).worker === 'string'
     ) {
-      this.worker = this.createWorkerFromPureString((worker as WorkerContentInJson).worker, config)
+      this.worker = this.createWorkerFromPureString(
+        (worker as WorkerStringContainer).worker,
+        config
+      )
     } else {
       this.worker = worker as Worker
     }
@@ -112,3 +115,5 @@ export class MonacoJsxSyntaxHighlight {
     }
   }
 }
+
+export { getWorker } from './get-worker'
